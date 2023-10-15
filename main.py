@@ -14,8 +14,8 @@ rolled_dice = []
 display_list = ["A", "B", "C", "D", "E"]
 no_of_rolls = 0
 saved_dice = []
-total_upper_score = None
-total_lower_score = None
+# total_upper_score = None
+# total_lower_score = None
 a = None
 b = None
 c = None
@@ -52,7 +52,7 @@ def play():
     global saved_dice
     global no_of_rolls
     clear_screen()
-    display_scores()
+    display_scores(title=True)
     input("Press a key to roll dice...")
     no_of_dice_to_reroll = 5 - len(saved_dice)
     result = roll_dice(int(no_of_dice_to_reroll))
@@ -90,7 +90,7 @@ def play():
 def add_score():
     global saved_dice
     global a, b, c, d, e, f, g, h, i, j, k, l, m, n
-    display_scores()
+    display_scores(title=False)
     # print(score_sheet)
     choice = input("What item do you want to add your values to? (a-n) ")
     if choice == "a" and a == None:
@@ -182,12 +182,10 @@ def add_score():
             input(saved_dice)
             if saved_dice[1] == 3 and saved_dice[2] == 4 and saved_dice[3] == 5:
                 k = 30
-                # input("short straight B achieved")
         if saved_dice[0] == 3:
             input(saved_dice)
             if saved_dice[1] == 4 and saved_dice[2] == 5 and saved_dice[3] == 6:
                 k = 30
-                # input("short straight C achieved")
     elif choice == "l" and l == None:  # Yatzee! --> Done!
         l = 0
         for number in range(1, 6):
@@ -203,7 +201,7 @@ def add_score():
     else:
         input("Wrong selection. Try again")
         add_score()
-    display_scores()
+    display_scores(title=False)
     reset_dice()
 
 
@@ -216,10 +214,14 @@ def reset_dice():
     play()
 
 
-def display_scores():
-    print("Yahtzee!!!")
-    print("")
+def display_scores(title):
+    global n
+    if title == True:
+        print("Yahtzee!!!")
+    else:
+        pass
     print("Upper scores:")
+    print("")
     print(f"a) 1s score: {a}")
     print(f"b) 2s score: {b}")
     print(f"c) 3s score: {c}")
@@ -238,8 +240,10 @@ def display_scores():
     print(f"n) Bonus Yatzee: {n}")
     print()
     try:
-        global total_upper_score
-        global total_lower_score
+        # global total_upper_score
+        # global total_lower_score
+        if n == None:
+            n = 0
         total_upper_score = a + b + c + d + e + f
         total_lower_score = g + h + i + j + k + l + m + n
         total_score = total_upper_score + total_lower_score
@@ -250,7 +254,6 @@ def display_scores():
             input("Game Over")
             quit()
     except:
-        # input("press a key to continue...")
         pass
 
 
@@ -259,14 +262,3 @@ def dice_to_keep(index, result):
 
 
 play()
-
-score_sheet = """
-Lower:
-	g) 3 of a kind (+)
-	h) 4 of a kind (+)
-	i) full house (25 pts)
-	j) long straight (40 pts)
-	k) short straight (30 pts)
-	l) Yatzee (50 pts)
-	m) Chance (+)
-"""
