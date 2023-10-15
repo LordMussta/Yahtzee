@@ -134,10 +134,27 @@ def add_score():
         for number in range(1, 6):
             if saved_dice.count(number) >= 4:
                 h = 4 * number
-    elif choice == "i" and i == None:  # Full house
+    elif choice == "i" and i == None:  # Full house --> NOT DONE !!!
         i = 0
-        for number in range(1, 6):
+        two_values = list(dict.fromkeys(saved_dice))  # removes duplicates
+        if len(two_values) == 2:
+            #input("There are only two values in this list! Good job")
+            valueA = 0
+            valueB = 0
+            saved_dice = sorted(saved_dice)
+            for dice in saved_dice:
+                if dice == two_values[0]:
+                    valueA += 1
+                elif dice == two_values[1]:
+                    valueB += 1
+            if valueA == 2 and valueB == 3:
+                #input("scenario A successful")
+            elif valueA == 3 and valueB == 2:
+                #input("scenario B successful")
+            i = 25
+        else:
             pass
+
     elif choice == "j" and j == None:  # long straight --> Done!
         j = 0
         saved_dice = list(dict.fromkeys(saved_dice))  # removes duplicates
