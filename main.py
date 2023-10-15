@@ -220,6 +220,7 @@ def display_scores(title):
         print("Yahtzee!!!")
     else:
         pass
+    print("")
     print("Upper scores:")
     print("")
     print(f"a) 1s score: {a}")
@@ -230,6 +231,7 @@ def display_scores(title):
     print(f"f) 6s score: {f}")
     print()
     print("Lower Scores:")
+    print("")
     print(f"g) 3 of a kind: {g}")
     print(f"h) 4 of a kind: {h}")
     print(f"i) full house: {i}")
@@ -254,11 +256,31 @@ def display_scores(title):
             input("Game Over")
             quit()
     except:
-        pass
+        upper_list = [a, b, c, d, e, f]
+        lower_list = [g, h, i, j, k, l, m, n]
+        upper_scores = sum_integers(upper_list)
+        lower_scores = sum_integers(lower_list)
+        grand_total = upper_scores + lower_scores
+        print(f"Total Upper Score: {upper_scores}")
+        print(f"Total Lower Score: {lower_scores}")
+        print(f"Total Score: {grand_total}")
+        print("")
 
 
 def dice_to_keep(index, result):
     saved_dice.append(result)
 
+
+def sum_integers(list_to_review):
+    total = 0
+    for item in list_to_review:
+        item_type = type(item)
+        if item_type == int:
+            total += item
+    return total
+    # input(f"Total of the list was {total}")
+
+
+# sum_integers([4, 3, 7, 23, 4, "seven"])
 
 play()
