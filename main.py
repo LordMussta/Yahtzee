@@ -51,6 +51,8 @@ def roll_dice(no_of_dice):
 def play():
     global saved_dice
     global no_of_rolls
+    clear_screen()
+    display_scores()
     input("Press a key to roll dice...")
     no_of_dice_to_reroll = 5 - len(saved_dice)
     result = roll_dice(int(no_of_dice_to_reroll))
@@ -128,7 +130,8 @@ def add_score():
         g = 0
         for number in range(1, 6):
             if saved_dice.count(number) >= 3:
-                g = 3 * number
+                dice_with_three = number
+        g = 3 * dice_with_three
     elif choice == "h" and h == None:  # 4 of a kind --> Done!
         h = 0
         for number in range(1, 6):
@@ -138,7 +141,7 @@ def add_score():
         i = 0
         two_values = list(dict.fromkeys(saved_dice))  # removes duplicates
         if len(two_values) == 2:
-            #input("There are only two values in this list! Good job")
+            # input("There are only two values in this list! Good job")
             valueA = 0
             valueB = 0
             saved_dice = sorted(saved_dice)
@@ -148,29 +151,30 @@ def add_score():
                 elif dice == two_values[1]:
                     valueB += 1
             if valueA == 2 and valueB == 3:
-                #input("scenario A successful")
+                # input("scenario A successful")
+                i = 25
             elif valueA == 3 and valueB == 2:
-                #input("scenario B successful")
-            i = 25
+                # input("scenario B successful")
+                i = 25
         else:
             pass
 
     elif choice == "j" and j == None:  # long straight --> Done!
         j = 0
         saved_dice = list(dict.fromkeys(saved_dice))  # removes duplicates
-        saved_dice = sorted(saved_dice)
-        if saved_dice[0] == 1:
-            if saved_dice[1] == 2 and saved_dice[2] == 3 and saved_dice[3] == 4 and saved_dice[4] == 5:
+        saved_dice_long = sorted(saved_dice)
+        if saved_dice_long[0] == 1:
+            if saved_dice_long[1] == 2 and saved_dice_long[2] == 3 and saved_dice_long[3] == 4 and saved_dice_long[4] == 5:
                 j = 40
-        if saved_dice[0] == 2:
-            if saved_dice[1] == 3 and saved_dice[2] == 4 and saved_dice[3] == 5 and saved_dice[3] == 6:
+        if saved_dice_long[0] == 2:
+            if saved_dice_long[1] == 3 and saved_dice_long[2] == 4 and saved_dice_long[3] == 5 and saved_dice_long[3] == 6:
                 j = 40
     elif choice == "k" and k == None:  # short straight --> Done!
         k = 0
         saved_dice = list(dict.fromkeys(saved_dice))  # removes duplicates
         saved_dice = sorted(saved_dice)
         if saved_dice[0] == 1:
-            input(saved_dice)
+            # input(saved_dice)
             if saved_dice[1] == 2 and saved_dice[2] == 3 and saved_dice[3] == 4:
                 k = 30
                 # input("short straight A achieved")
@@ -191,8 +195,7 @@ def add_score():
                 l = 50
     elif choice == "m" and m == None:  # chance --> Done!
         m = 0
-        for number in range(1, 6):
-            m = m + number
+        m = sum(saved_dice)
     elif choice == "n":  # Bonus Yatzee! --> Done!
         for number in range(1, 6):
             if saved_dice.count(number) >= 5:
@@ -214,6 +217,8 @@ def reset_dice():
 
 
 def display_scores():
+    print("Yahtzee!!!")
+    print("")
     print("Upper scores:")
     print(f"a) 1s score: {a}")
     print(f"b) 2s score: {b}")
@@ -245,7 +250,8 @@ def display_scores():
             input("Game Over")
             quit()
     except:
-        input("press a key to continue...")
+        # input("press a key to continue...")
+        pass
 
 
 def dice_to_keep(index, result):
