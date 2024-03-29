@@ -19,5 +19,10 @@ def select_all_data():
     return connection.execute("SELECT * FROM highScores ORDER BY score DESC LIMIT 10;")
 
 
+def delete_table():
+    with connection:
+        connection.execute("DROP TABLE IF EXISTS highScores;")
+
+
 def close_connection():
     connection.close()

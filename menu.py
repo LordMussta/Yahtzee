@@ -33,6 +33,3 @@ def menu():
     else:
         print("Invalid command!")
     menu()
-
-
-menu()

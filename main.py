@@ -3,11 +3,23 @@
 
 import random
 import os
+import data
+from datetime import date
+import menu
+import pyfiglet
 
 try:
     import console
 except:
     pass
+
+
+def clear_screen():
+    try:
+        os.system("clear")
+    except:
+        console.clear()
+
 
 no_of_dice = 6
 rolled_dice = []
@@ -46,6 +58,68 @@ def roll_dice(no_of_dice):
         roll = random.randint(1, 6)
         all_rolls.append(roll)
     return all_rolls
+
+
+def insert_dummy_data():
+    users_name = input("Please enter your name: ")
+    fake_user_name = users_name[0:9]
+    fake_score = input("Enter your score: ")
+    if int(fake_score) > 0 and int(fake_score) < 1000:
+        save_high_score(fake_score, fake_user_name)
+    else:
+        input("What the f#!& was that!")
+        insert_dummy_data()
+
+
+def display_high_scores():
+    try:
+        high_scores = data.select_all_data()
+        print(f"DATE       SCORE        NAME      ")
+        for score in high_scores:
+            # score[o] = date
+            # score[1] = name
+            # score[2] = score
+            print(f"{score[0]} --{score[2]} ------ {score[1]}")
+        input("Press a key to continue...")
+        menu()
+    except:
+        menu()
+
+
+def reset_high_scores():
+    data.delete_table()
+    data.create_table()
+
+
+def menu():
+    clear_screen()
+    title = pyfiglet.figlet_format("Yahtzee")
+    print(title)
+    print()
+    print("1) Play Yahtzee!")
+    print("2) High Scores")
+    print("--------------------")
+    print("8) Reset Scores")
+    print("9) Quit")
+    print()
+    selection = input("> ")
+    if selection == "1":
+        input("Loading game... ")
+        play()
+    elif selection == "2":
+        input("Loading scores...")
+        display_high_scores()
+    elif selection == "3":
+        insert_dummy_data()
+    elif selection == "8":
+        input("Resetting scores...")
+        reset_high_scores()
+    elif selection == "9":
+        input("Quiting...")
+        quit()
+    else:
+        print("Invalid command!")
+    menu()
 
 
 def play():
@@ -214,6 +288,13 @@ def reset_dice():
     play()
 
 
+def save_high_score(score, name):
+    data.create_table()
+    today = date.today()
+    str_today = str(today)
+    data.insert_data(str_today, name, score)
+
+
 def display_scores(title):
     global n
     if title == True:
@@ -254,7 +335,10 @@ def display_scores(title):
             print(f"Total Lower Score: {total_lower_score}")
             print(f"Total Score: {total_score}")
             input("Game Over")
-            quit()
+            users_name = input("Please enter your name: ")
+            # this is where I add code to save the high scores
+            save_high_score(total_score, users_name)
+            menu()
     except:
         upper_list = [a, b, c, d, e, f]
         lower_list = [g, h, i, j, k, l, m, n]
@@ -283,4 +367,4 @@ def sum_integers(list_to_review):
 
 # sum_integers([4, 3, 7, 23, 4, "seven"])
 
-play()
+menu()
