@@ -9,3 +9,5 @@ Note:
 
 For further development:
 - do a tidy up and check for bugs
+- resolve a bug that is randomly crashing the game in the middle of the game
+- resolve a bug that looped entering my username, but never saved the high score
