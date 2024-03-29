@@ -7,6 +7,7 @@ import data
 from datetime import date
 import pyfiglet
 
+
 try:
     import console
 except:
@@ -42,6 +43,7 @@ l = None
 m = None
 n = None
 # user_scores = [a,b,c,d,e,f]
+gameInProgress = True
 
 
 def clear_screen():
@@ -79,6 +81,7 @@ def display_high_scores():
             # score[1] = name
             # score[2] = score
             print(f"{score[0]} --{score[2]} ------ {score[1]}")
+        data.close_connection()
         input("Press a key to continue...")
         menu()
     except:
@@ -114,8 +117,7 @@ def menu():
         input("Resetting scores...")
         reset_high_scores()
     elif selection == "9":
-        data.close_connection()
-        quit()
+        os._exit(1)
     else:
         input("Invalid command!")
     menu()
