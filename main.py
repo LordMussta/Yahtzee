@@ -114,10 +114,10 @@ def menu():
         input("Resetting scores...")
         reset_high_scores()
     elif selection == "9":
-        input("Quiting...")
+        data.close_connection()
         quit()
     else:
-        print("Invalid command!")
+        input("Invalid command!")
     menu()
 
 
@@ -239,8 +239,8 @@ def add_score():
         if saved_dice_long[0] == 1:
             if saved_dice_long[1] == 2 and saved_dice_long[2] == 3 and saved_dice_long[3] == 4 and saved_dice_long[4] == 5:
                 j = 40
-        if saved_dice_long[0] == 2:
-            if saved_dice_long[1] == 3 and saved_dice_long[2] == 4 and saved_dice_long[3] == 5 and saved_dice_long[3] == 6:
+        elif saved_dice_long[0] == 2:
+            if saved_dice_long[1] == 3 and saved_dice_long[2] == 4 and saved_dice_long[3] == 5 and saved_dice_long[4] == 6:
                 j = 40
     elif choice == "k" and k == None:  # short straight --> Done!
         k = 0
@@ -251,11 +251,11 @@ def add_score():
             if saved_dice[1] == 2 and saved_dice[2] == 3 and saved_dice[3] == 4:
                 k = 30
                 # input("short straight A achieved")
-        if saved_dice[0] == 2:
+        elif saved_dice[0] == 2:
             input(saved_dice)
             if saved_dice[1] == 3 and saved_dice[2] == 4 and saved_dice[3] == 5:
                 k = 30
-        if saved_dice[0] == 3:
+        elif saved_dice[0] == 3:
             input(saved_dice)
             if saved_dice[1] == 4 and saved_dice[2] == 5 and saved_dice[3] == 6:
                 k = 30
