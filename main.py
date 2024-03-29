@@ -5,7 +5,6 @@ import random
 import os
 import data
 from datetime import date
-import menu
 import pyfiglet
 
 try:
